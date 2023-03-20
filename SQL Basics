@@ -1,0 +1,142 @@
+#Select the information from the “dept_no” column of the “departments” table.
+
+SELECT dept_no
+FROM departments;
+
+#Select all data from the “departments” table.
+
+SELECT *
+FROM departments;
+
+#Select all people from the “employees” table whose first name is “Elvis”.
+
+SELECT *
+FROM employees
+WHERE first_name = "Elvis";
+
+#Retrieve a list with all female employees whose first name is Kellie. 
+
+SELECT *
+FROM employees
+WHERE first_name = "kellie" AND gender = "F";
+
+#Retrieve a list with all employees whose first name is either Kellie or Aruna.
+
+SELECT *
+FROM employees
+WHERE first_name = "kellie" OR first_name = "Aruna";
+
+#Retrieve a list with all female employees whose first name is either Kellie or Aruna.
+
+SELECT *
+FROM employees
+WHERE gender = "F" AND (first_name = "kellie" OR first_name = "Aruna");
+
+#Use the IN operator to select all individuals from the “employees” table, whose first name is either “Denis”, or “Elvis”.
+
+SELECT *
+FROM employees
+WHERE first_name IN ("Denis","Elvis");
+
+#Extract all records from the ‘employees’ table, aside from those with employees named John, Mark, or Jacob.
+
+SELECT *
+FROM employees
+WHERE first_name NOT IN ("John","Mark","Jacob");
+
+#Working with the “employees” table, use the LIKE operator to select the data about all individuals, whose first name starts with “Mark”; specify that the name can be succeeded by any sequence of characters.
+
+SELECT *
+FROM employees
+WHERE first_name like('%mark');
+
+#Select all the information from the “salaries” table regarding contracts from 66,000 to 70,000 dollars per year.
+
+SELECT *
+FROM salaries
+WHERE salary BETWEEN '66000' AND '70000';
+
+#Retrieve a list with all individuals whose employee number is not between ‘10004’ and ‘10012’.
+
+SELECT * 
+FROM employees
+WHERE emp_no NOT BETWEEN '10004' AND '10012';
+
+#Select the names of all departments with numbers between ‘d003’ and ‘d006’.
+
+SELECT *
+FROM departments
+WHERE dept_no BETWEEN 'd003' and 'd006';
+
+#Retrieve a list with data about all female employees who were hired in the year 2000 or after.
+
+SELECT *
+FROM employees
+WHERE hire_date >= '2000-01-01' AND gender = "F";
+
+#Obtain a list with all different “hire dates” from the “employees” table.
+
+SELECT distinct(hire_date)
+FROM employees;
+
+#How many annual contracts with a value higher than or equal to $100,000 have been registered in the salaries table?
+
+SELECT COUNT(*)
+FROM salaries
+WHERE salary >= '100000';
+
+#Select all data from the “employees” table, ordering it by “hire date” in descending order.
+
+SELECT *
+FROM employees
+ORDER BY hire_date DESC;
+
+#Write a query that obtains an output whose first column must contain annual salaries higher than 80,000 dollars. The second column, renamed to “emps_with_same_salary”, must show the number of employee contracts signed with this salary.
+
+SELECT salary, COUNT(salary) AS 'emps_with_same_salary'
+FROM salaries
+WHERE salary > '80000'
+GROUP BY salary;
+
+#Select all employees whose average salary is higher than $120,000 per annum.
+
+SELECT emp_no , AVG(salary) AS AVG_SALARY
+FROM salaries
+GROUP BY emp_no
+HAVING AVG_SALARY > '120000';
+
+#Select the first 100 rows from the ‘dept_emp’ table. 
+
+SELECT *
+FROM dept_emp
+LIMIT 100;
+
+#How many departments are there in the “employees” database? Use the ‘dept_emp’ table to answer the question.
+
+SELECT  COUNT(DISTINCT dept_no)
+FROM dept_emp;
+
+#What is the total amount of money spent on salaries for all contracts starting after the 1st of January 1997?
+
+SELECT SUM(salary)
+FROM salaries
+WHERE from_date > '1997-01-01';
+
+#1. Which is the lowest employee number in the database?
+
+SELECT MIN(emp_no)
+FROM employees;
+
+#2. Which is the highest employee number in the database?
+
+SELECT MAX(emp_no)
+FROM employees;
+
+#What is the average annual salary paid to employees who started after the 1st of January 1997?
+
+SELECT AVG(salary)
+FROM salaries
+WHERE from_date > '1997-01-01'
+
+
+
